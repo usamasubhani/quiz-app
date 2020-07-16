@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 
-import { fetchQuestions } from './API'
+import { fetchQuestions, QuestionState } from './API'
 import Question from './Components/Question'
 
 
 function App() {
 
-  const [questions, setQuestions] = useState([]);
-
+  const [questions, setQuestions] = useState<QuestionState[]>([]);
+  const [no, setNo] = useState(0)
   
   const start = async () => { 
     const data = await fetchQuestions();
-    console.log(data);
+    setQuestions(data);
+    console.log(questions)
   }
-
-  start();
   return (
     <div className="App">
       <h1>QUIZ</h1>
-      {/* <Question /> */}
+      <button onClick={start}>Start</button>
+      {questions.length > 0 ? (
+        <Question 
+      question={questions[no].question}
+      answers={questions[no].answers}
+      questionNo={no+1}/>) : <div/>}
     </div>
   );
 }

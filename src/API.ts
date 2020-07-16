@@ -1,5 +1,7 @@
 const shuffle = (array: string[]) => [...array].sort(() => Math.random() - 0.5);
 
+export type QuestionState = Question & { answers: string[] }
+
 export type Question = {
     question: string;
     category: string;

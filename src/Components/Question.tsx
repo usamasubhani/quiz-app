@@ -4,7 +4,6 @@ type data = {
     question: string,
     answers: string[],
     questionNo: number,
-    totalQs: number
 }
 
 const Question: React.FC<data> = ({ question, answers, questionNo }) => {

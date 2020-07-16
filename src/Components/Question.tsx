@@ -17,7 +17,6 @@ const Question: React.FC<data> = ({ question, answers, questionNo }) => {
                     </button>
                 </div>
             )) }
-            <button>Next</button>
         </div>
     )
 }

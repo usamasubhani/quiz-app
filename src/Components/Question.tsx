@@ -1,4 +1,6 @@
 import React from 'react'
+import { Paper, Button, Typography, List, ListItem, ListItemText } from '@material-ui/core'
+
 import { Answer } from '../App'
 
 type data = {
@@ -11,14 +13,27 @@ type data = {
 
 const Question: React.FC<data> = ({ question, answers, questionNo, callBack, userAnswer }) => {
     return (
-        <div>
-            <p>{ question }</p>
+        <Paper className="questionContainer">
+            <Typography variant="h4">{questionNo}. { question }</Typography>
+            <List>
+            
             { answers.map(answer => (
-                <button key={answer} value={answer} onClick={callBack} disabled={userAnswer ? true:false}>
-                    { answer }
-                </button>
+                <ListItem key={answer}>
+                <Button disabled={userAnswer ? true:false} value={answer} onClick={callBack}>{answer}</Button>
+                {/* <ListItemText key={answer} primary={answer} /> */}
+                </ListItem>
             )) }
-        </div>
+                
+            
+            </List>
+            {/* { answers.map(answer => (
+                <div key={answer}> 
+                <Button variant="contained" value={answer} onClick={callBack} disabled={userAnswer ? true:false}>
+                    { answer }
+                </Button>
+                </div>
+            )) } */}
+        </Paper>
     )
 }
 

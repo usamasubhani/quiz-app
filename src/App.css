@@ -1,0 +1,11 @@
+.App {
+    max-width: 700px;
+    margin: auto;
+}
+
+.questionContainer {
+    box-sizing: border-box;
+    height: 80vh;
+    width: 100%;
+    padding: 30px;
+}

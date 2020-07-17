@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { Paper, Button, AppBar, Typography, Toolbar, IconButton, Grid } from '@material-ui/core'
+import './App.css'
 import { fetchQuestions, QuestionState } from './API'
 import Question from './Components/Question'
 
@@ -28,17 +29,19 @@ function App() {
   }
 
   const nextQuestion = () => {
-    if (no != 9) {
-      setNo(no + 1);
+    if (no !== 9) {      
+      setNo((prev) => prev + 1);
     }
     else {
       setProgress(false);
     }
+    
   }
 
   const checkAnswer = (e: any) => {
     const answer = e.currentTarget.value;
-    const correct = questions[no].correct_answer == answer;
+    const correct = questions[no].correct_answer === answer;
+    console.log(correct)
     if (correct) {
       setScore((prev) => prev + 1);
     }
@@ -54,26 +57,34 @@ function App() {
 
   return (
     <div className="App">
-      <h1>QUIZ</h1>
-      <button onClick={start}>Start</button>
-      {questions.length > 0 && quizInProgress == true ? (
-        <div>
-          <p>{ no + 1 }/10</p>
+      <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" style={{ flexGrow:0.5 }}>
+          Quiz
+        </Typography>
+        {quizInProgress ? (<Typography variant="h6" style={{ flexGrow:0.5 }}> 
+          { no + 1 }/10
+        </Typography>) : <div style={{ flexGrow:0.5 }}/>}
+  {!quizInProgress ? (<Button className="start" onClick={start} color="inherit">Start</Button>) : <Button color="inherit" onClick={nextQuestion}>Next</Button> }
+      </Toolbar>
+    </AppBar>
+      
+      {questions.length > 0 && quizInProgress === true ? (
+        <div className="question">
           <Question 
           question={questions[no].question}
           answers={questions[no].answers}
           questionNo={no+1}
           callBack={checkAnswer}
           userAnswer={userAnswers ? userAnswers[no] : null}/>
-          <button onClick={nextQuestion}>Next</button>
         </div>
-          ) : null}
-
-        {quizInProgress == false && userAnswers.length > 0 ? (
-          <div>
-            <h2>Score: { score }</h2>
-          </div>
-        ) : null}
+          ) : <Paper className="questionContainer">
+                {!quizInProgress && userAnswers.length > 0 ? (
+                <div>
+                  <Typography variant="h4">Score: { score }</Typography>
+                </div>
+                  ) : null}
+              </Paper>}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Button, AppBar, Typography, Toolbar, IconButton, Grid } from '@material-ui/core'
+import { Paper, Button, AppBar, Typography, Toolbar } from '@material-ui/core'
 import './App.css'
 import { fetchQuestions, QuestionState } from './API'
 import Question from './Components/Question'
@@ -29,22 +29,22 @@ function App() {
   }
 
   const nextQuestion = () => {
-    if (no !== 9) {      
+    if (no !== 9) { // Not Last Question
       setNo((prev) => prev + 1);
     }
     else {
       setProgress(false);
     }
-    
   }
 
   const checkAnswer = (e: any) => {
     const answer = e.currentTarget.value;
     const correct = questions[no].correct_answer === answer;
-    console.log(correct)
+
     if (correct) {
       setScore((prev) => prev + 1);
     }
+
     const answerObject = {
       question: questions[no].question,
       answer,
@@ -52,22 +52,28 @@ function App() {
       correct_answer: questions[no].correct_answer,
     };
     setUserAnswers((prev) => [...prev, answerObject]);
-    // console.log(userAnswers[no]);
   }
 
   return (
     <div className="App">
       <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" style={{ flexGrow:0.5 }}>
-          Quiz
-        </Typography>
-        {quizInProgress ? (<Typography variant="h6" style={{ flexGrow:0.5 }}> 
-          { no + 1 }/10
-        </Typography>) : <div style={{ flexGrow:0.5 }}/>}
-  {!quizInProgress ? (<Button className="start" onClick={start} color="inherit">Start</Button>) : <Button color="inherit" onClick={nextQuestion}>Next</Button> }
-      </Toolbar>
-    </AppBar>
+        <Toolbar>
+          <Typography variant="h6" style={{ flexGrow:0.5 }}>
+            Quiz
+          </Typography>
+
+          {quizInProgress ?
+          (<Typography variant="h6" style={{ flexGrow:0.5 }}> 
+            { no + 1 }/10
+          </Typography>) 
+          : <div style={{ flexGrow:0.5 }}/>}
+
+          {!quizInProgress ? 
+          (<Button className="start" onClick={start} color="inherit">Start</Button>)
+          : <Button color="inherit" onClick={nextQuestion}>Next</Button> }
+          
+        </Toolbar>
+      </AppBar>
       
       {questions.length > 0 && quizInProgress === true ? (
         <div className="question">
@@ -78,13 +84,14 @@ function App() {
           callBack={checkAnswer}
           userAnswer={userAnswers ? userAnswers[no] : null}/>
         </div>
-          ) : <Paper className="questionContainer">
-                {!quizInProgress && userAnswers.length > 0 ? (
-                <div>
-                  <Typography variant="h4">Score: { score }</Typography>
-                </div>
-                  ) : null}
-              </Paper>}
+          ) : 
+          <Paper className="questionContainer">
+            {!quizInProgress && userAnswers.length > 0 ? (
+            <div>
+              <Typography variant="h4">Score: { score }</Typography>
+            </div>
+              ) : null}
+          </Paper>}
     </div>
   );
 }

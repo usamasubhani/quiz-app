@@ -85,7 +85,7 @@ function App() {
           userAnswer={userAnswers ? userAnswers[no] : null}/>
         </div>
           ) : 
-          <Paper className="questionContainer">
+          <Paper elevation={10} className="questionContainer">
             {!quizInProgress && userAnswers.length > 0 ? (
             <div>
               <Typography variant="h4">Score: { score }</Typography>

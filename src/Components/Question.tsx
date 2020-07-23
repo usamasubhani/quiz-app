@@ -13,8 +13,8 @@ type data = {
 
 const Question: React.FC<data> = ({ question, answers, questionNo, callBack, userAnswer }) => {
     return (
-        <Paper className="questionContainer">
-            <Typography variant="h4">{questionNo}. { question }</Typography>
+        <Paper elevation={10} className="questionContainer">
+            <Typography dangerouslySetInnerHTML={{__html: question}} />
             <List>
             
             { answers.map(answer => (

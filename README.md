@@ -3,6 +3,7 @@
 Quiz App with React and TypeScript
 
 ## To-Do
-- [] Fix quotation/commas in questions.
-- [] Show correct answer.
-- [] Improve UI.
+- [x] Fix quotation/commas in questions.
+- [ ] Show correct answer.
+- [ ] Improve UI.
+- [ ] Make PWA
